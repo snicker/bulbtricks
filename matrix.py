@@ -33,17 +33,18 @@ class Matrix:
         return children
     
     def run(self):
-        scheduler = sched.scheduler(time.time, time.sleep)
-        self.running = True
-        def fn():
-            self.tick()
-            if self.running:
+        if not self.running:
+            scheduler = sched.scheduler(time.time, time.sleep)
+            self.running = True
+            def fn():
+                self.tick()
+                if self.running:
+                    scheduler.enter(1.0 / self.frequency, 0, fn, ())
+            def fn_start():
                 scheduler.enter(1.0 / self.frequency, 0, fn, ())
-        def fn_start():
-            scheduler.enter(1.0 / self.frequency, 0, fn, ())
-            scheduler.run()
-        self._scheduler_thread = threading.Thread(target = fn_start)
-        self._scheduler_thread.start()
+                scheduler.run()
+            self._scheduler_thread = threading.Thread(target = fn_start)
+            self._scheduler_thread.start()
         
     def stop(self):
         self.running = False
