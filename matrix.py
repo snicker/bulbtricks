@@ -37,9 +37,9 @@ class Matrix:
             scheduler = sched.scheduler(time.time, time.sleep)
             self.running = True
             def fn():
-                self.tick()
                 if self.running:
                     scheduler.enter(1.0 / self.frequency, 0, fn, ())
+                self.tick()
             def fn_start():
                 scheduler.enter(1.0 / self.frequency, 0, fn, ())
                 scheduler.run()
