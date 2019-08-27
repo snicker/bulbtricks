@@ -46,5 +46,5 @@ class ConsoleDriver:
                         b = self.matrix[col][row].brightness
                     except:
                         pass
-                    print(term.move(ypos, xpos) + "{0:.1g}".format(b))
+                    print(self.terminal.move(ypos, xpos) + "{0:.1g}".format(b))
         
