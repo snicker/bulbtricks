@@ -35,7 +35,7 @@ class ConsoleDriver:
             self._scheduler_thread = None
         
     def render(self):
-        self.terminal.clear()
+        print(self.terminal.clear())
         with self.terminal.location():
             for row in range(self.matrix.rows):
                 ypos = 1 + row * 2
