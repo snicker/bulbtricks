@@ -53,8 +53,8 @@ class ConsoleDriver:
                         xpos = 1 + col * 6
                         output = "{0:3.1f}".format(b).rjust(5)
                     if self.mode == 'character':
-                        xpos = 1 + row
-                        ypos = 1 + col
+                        ypos = 1 + row
+                        xpos = 1 + col
                         output = ASCIIGREYMAP[max(0, min( int( (1-(b/100))*len(ASCIIGREYMAP) ), len(ASCIIGREYMAP)-1 ))]
                     print(self.terminal.move(ypos, xpos) + output)
         
