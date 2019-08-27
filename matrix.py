@@ -6,17 +6,17 @@ class Matrix:
     def __init__(self, rows, columns):
         self.frequency = 240
         self.running = False
-        self._matrix = [ [None for x in range(0, columns)] for y in range(0, rows) ]
+        self._matrix = [ [None for x in range(0, rows)] for y in range(0, columns) ]
         
         self._scheduler_thread = None
         
         
     @property
-    def rows(self):
+    def columns(self):
         return len(self._matrix)
         
     @property
-    def columns(self):
+    def rows(self):
         return len(next((r for r in self._matrix),''))
         
     @property
@@ -60,13 +60,13 @@ class Matrix:
                 except:
                     logging.exception('in child {}'.format(child))
                 
-    def add(self, item, x, y, replace = True):
-        if self._matrix[x][y] and not replace:
+    def add(self, item, column, row, replace = True):
+        if self._matrix[column][row] and not replace:
             raise Exception('Cell already occupied')
-        self._matrix[x][y] = item
+        self._matrix[column][row] = item
         
-    def at(self, x, y):
-        if x < self.rows and y < self.columns:
-            return self._matrix[x][y]
+    def at(self, column, row):
+        if row < self.rows and column < self.columns:
+            return self._matrix[column][row]
         return None
         
