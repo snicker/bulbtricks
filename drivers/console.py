@@ -3,12 +3,15 @@ import threading
 import logging
 import blessed
 
+ASCIIGREYMAP = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+
 class ConsoleDriver:
     def __init__(self, matrix):
         self.frequency = 30
         self.running = False
         self.matrix = matrix
         self.terminal = blessed.Terminal()
+        self.mode = 'percent'
         
         self._scheduler_thread = None
     
@@ -38,13 +41,20 @@ class ConsoleDriver:
         print(self.terminal.clear())
         with self.terminal.location():
             for row in range(self.matrix.rows):
-                ypos = 1 + row * 2
                 for col in range(self.matrix.columns):
-                    xpos = 1 + col * 6
                     b = 0
                     try:
                         b = self.matrix.at(col,row).brightness * 100
                     except:
                         pass
-                    print(self.terminal.move(ypos, xpos) + "{0:3.1f}".format(b).rjust(5))
+                    output = "0"
+                    if self.mode = 'percent':
+                        ypos = 1 + row * 2
+                        xpos = 1 + col * 6
+                        output = "{0:3.1f}".format(b).rjust(5)
+                    if self.mode = 'character':
+                        xpos = 1 + row
+                        ypos = 1 + col
+                        output = ASCIIGREYMAP[min(int((1-b)*len(ASCIIGREYMAP)),len(ASCIIGREYMAP)-1)]
+                    print(self.terminal.move(ypos, xpos) + output)
         
