@@ -3,7 +3,7 @@ import threading
 import logging
 
 class Matrix:
-    def __init__(self, rows, columns):
+    def __init__(self, columns, rows):
         self.frequency = 240
         self.running = False
         self._matrix = [ [None for x in range(0, rows)] for y in range(0, columns) ]
