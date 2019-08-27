@@ -30,7 +30,7 @@ class Matrix:
                 except:
                     children.append(c)
         unpack(self._matrix)
-        return children
+        return list(set(children))
     
     def run(self):
         if not self.running:
