@@ -21,7 +21,7 @@ class PulseBulb(Bulb):
         return self._delay
         
     def step(self, direction):
-        self.brightness += self.speed * direction * self._pulse_direction * 1.0 / (self.delay * self.frequency / self.ticks_per_step)
+        self.brightness += self.speed * direction * self._pulse_direction * (self.maxbrightness - self.minbrightness) / (self.delay * self.frequency / self.ticks_per_step)
         if self.brightness >= self.maxbrightness or self.brightness <= self.minbrightness:
             self.brightness = max(self.minbrightness,min(self.maxbrightness,self.brightness))
             self._pulse_direction *= -1
