@@ -43,7 +43,7 @@ class ConsoleDriver:
                     xpos = 1 + col * 5
                     b = 0
                     try:
-                        b = self.matrix[col][row].brightness
+                        b = self.matrix.at(col,row).brightness
                     except:
                         pass
                     print(self.terminal.move(ypos, xpos) + "{0:.1g}".format(b))
