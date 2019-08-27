@@ -55,6 +55,6 @@ class ConsoleDriver:
                     if self.mode == 'character':
                         xpos = 1 + row
                         ypos = 1 + col
-                        output = ASCIIGREYMAP[max(0, min( int( (1-b)*len(ASCIIGREYMAP) ), len(ASCIIGREYMAP)-1 ))]
+                        output = ASCIIGREYMAP[max(0, min( int( (1-(b/100))*len(ASCIIGREYMAP) ), len(ASCIIGREYMAP)-1 ))]
                     print(self.terminal.move(ypos, xpos) + output)
         
