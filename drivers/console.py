@@ -46,5 +46,5 @@ class ConsoleDriver:
                         b = self.matrix.at(col,row).brightness * 100
                     except:
                         pass
-                    print(self.terminal.move(ypos, xpos) + "{0:.1}".format(b))
+                    print(self.terminal.move(ypos, xpos) + "{0:3.1f}".format(b).rjust(5))
         
