@@ -48,11 +48,11 @@ class ConsoleDriver:
                     except:
                         pass
                     output = "0"
-                    if self.mode = 'percent':
+                    if self.mode == 'percent':
                         ypos = 1 + row * 2
                         xpos = 1 + col * 6
                         output = "{0:3.1f}".format(b).rjust(5)
-                    if self.mode = 'character':
+                    if self.mode == 'character':
                         xpos = 1 + row
                         ypos = 1 + col
                         output = ASCIIGREYMAP[min(int((1-b)*len(ASCIIGREYMAP)),len(ASCIIGREYMAP)-1)]
