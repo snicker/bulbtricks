@@ -40,7 +40,7 @@ class ConsoleDriver:
             for row in range(self.matrix.rows):
                 ypos = 1 + row * 2
                 for col in range(self.matrix.columns):
-                    xpos = 1 + col * 5
+                    xpos = 1 + col * 6
                     b = 0
                     try:
                         b = self.matrix.at(col,row).brightness * 100
