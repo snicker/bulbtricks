@@ -21,7 +21,6 @@ class OLAWebDriver(DisplayDriver):
         values = {x:0 for x in range(4)}
         for col in range(self.matrix.columns):
             for row in range(self.matrix.rows):
-                channel += 1
                 channel_remap = self.channel_map.get(channel, channel)
                 if channel_remap:
                     b = 0
@@ -30,6 +29,7 @@ class OLAWebDriver(DisplayDriver):
                     except:
                         pass
                     values[channel_remap] = b
+                channel += 1
         out = ','.join([str(values.get(c,0)) for c in range(max(values.keys()) + 1)])
         resp = requests.post(self.ola_url, data = {'u': self.universe, 'd': out})
         if resp:
