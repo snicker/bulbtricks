@@ -22,7 +22,7 @@ class OLAWebDriver(DisplayDriver):
         for col in range(self.matrix.columns):
             for row in range(self.matrix.rows):
                 channel_remap = self.channel_map.get(channel, channel)
-                if channel_remap:
+                if channel_remap is not None and channel_remap > -1:
                     b = 0
                     try:
                         b = int(self.matrix.at(col,row).brightness * 255)
