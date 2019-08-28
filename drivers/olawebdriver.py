@@ -19,8 +19,8 @@ class OLAWebDriver(DisplayDriver):
     def render(self):
         channel = 0
         values = {x:0 for x in range(4)}
-        for col in range(self.matrix.columns):
-            for row in range(self.matrix.rows):
+        for row in range(self.matrix.rows):
+            for col in range(self.matrix.columns):
                 channel_remap = self.channel_map.get(channel, channel)
                 if channel_remap is not None and channel_remap > -1:
                     b = 0
