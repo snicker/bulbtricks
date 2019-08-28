@@ -11,20 +11,6 @@ class ConsoleDriver(DisplayDriver):
         DisplayDriver.__init__(self, matrix)
         self.terminal = blessed.Terminal()
         self.mode = 'percent'
-    
-    def run(self):
-        if not self.running:
-            scheduler = sched.scheduler(time.time, time.sleep)
-            self.running = True
-            def fn():
-                if self.running:
-                    scheduler.enter(1.0 / self.frequency, 0, fn, ())
-                self.render()
-            def fn_start():
-                scheduler.enter(1.0 / self.frequency, 0, fn, ())
-                scheduler.run()
-            self._scheduler_thread = threading.Thread(target = fn_start)
-            self._scheduler_thread.start()
             
     def on_start(self):
         self.terminal.enter_fullscreen()
