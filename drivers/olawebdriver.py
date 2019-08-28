@@ -30,8 +30,13 @@ class OLAWebDriver(DisplayDriver):
                     except:
                         pass
                     values[channel_remap] = b
-        out = ','.join([values.get(c,0) for c in range(max(values.keys()) + 1)])
-        resp = requests.post(self.ola_url, method = 'POST', data = {'u': self.universe, 'd': out})
+        out = ','.join([str(values.get(c,0)) for c in range(max(values.keys()) + 1)])
+        resp = requests.post(self.ola_url, data = {'u': self.universe, 'd': out})
+        if resp:
+            if resp.text != 'ok':
+                logging.error('bad response from OLA {}'.format(resp.text))
+        else:
+            logging.error('OLA did not respond in a timely manner')
         
         
         
