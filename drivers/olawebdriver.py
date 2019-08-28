@@ -14,7 +14,7 @@ class OLAWebDriver(DisplayDriver):
         
     @property
     def ola_url(self):
-        return "http://{host}:{port}/set_dmx"
+        return "http://{host}:{port}/set_dmx".format(host = self.host, port = self.port)
 
     def render(self):
         channel = 0
