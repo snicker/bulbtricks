@@ -2,24 +2,20 @@ import time, sched
 import threading
 import logging
 import blessed
+from drivers.displaydriver import DisplayDriver
 
 ASCIIGREYMAP = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 
-class ConsoleDriver:
+class ConsoleDriver(DisplayDriver):
     def __init__(self, matrix):
-        self.frequency = 30
-        self.running = False
-        self.matrix = matrix
+        DisplayDriver.__init__(self, matrix)
         self.terminal = blessed.Terminal()
         self.mode = 'percent'
-        
-        self._scheduler_thread = None
     
     def run(self):
         if not self.running:
             scheduler = sched.scheduler(time.time, time.sleep)
             self.running = True
-            self.terminal.enter_fullscreen()
             def fn():
                 if self.running:
                     scheduler.enter(1.0 / self.frequency, 0, fn, ())
@@ -29,14 +25,13 @@ class ConsoleDriver:
                 scheduler.run()
             self._scheduler_thread = threading.Thread(target = fn_start)
             self._scheduler_thread.start()
+            
+    def on_start(self):
+        self.terminal.enter_fullscreen()
         
-    def stop(self):
-        self.running = False
+    def on_stop(self):
         self.terminal.exit_fullscreen()
-        if self._scheduler_thread:
-            self._scheduler_thread.join()
-            self._scheduler_thread = None
-        
+
     def render(self):
         print(self.terminal.clear())
         with self.terminal.location():
