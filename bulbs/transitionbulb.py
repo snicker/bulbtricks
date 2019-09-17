@@ -6,6 +6,7 @@ class TransitionBulb(Bulb):
         self._frombulb = frombulb
         self._tobulb = tobulb
         self._delay = delay
+        self.brightness = self.startingbrightness
         
     @property
     def delay(self):
@@ -20,7 +21,7 @@ class TransitionBulb(Bulb):
         return self._tobulb.brightness if self._tobulb else 1
         
     def step(self, direction):
-        if self.startingbrightness > self.endingbrightness:
+        if self.startingbrightness >= self.endingbrightness:
             direction *= -1
         self.brightness += self.speed * direction * abs(self.startingbrightness - self.endingbrightness) / (self.delay * self.frequency / self.ticks_per_step)
         if (self.startingbrightness >= self.endingbrightness and self.brightness <= self.endingbrightness) or (self.endingbrightness >= self.startingbrightness and self.brightness >= self.endingbrightness):
