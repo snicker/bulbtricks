@@ -10,8 +10,8 @@ class PulseBulb(RampUpBulb):
         return self._pulse_direction
         
     def step(self, direction):
-        RampUpBulb.step(self, direction)
-        self.brightness *= self.pulsedirection
+        self.brightness += self.speed * direction * (self.maxbrightness - self.minbrightness) / (self.delay * self.frequency / self.ticks_per_step)
         if self.brightness >= self.maxbrightness or self.brightness <= self.minbrightness:
+            self.brightness = max(self.minbrightness,min(self.maxbrightness,self.brightness))
             self._pulse_direction *= -1
         
