@@ -50,7 +50,7 @@ class HighlightEffect_Up(Effect):
     def initialize(self, matrix):
         self._matrix = matrix
         self._original_matrix = self._matrix._matrix
-        self.filtered = []
+        filtered = []
         for column in range(self._matrix.columns):
             for row in range(self._matrix.rows):
                 bulb = self._matrix.at(column, row)
