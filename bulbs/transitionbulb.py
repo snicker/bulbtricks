@@ -9,6 +9,10 @@ class TransitionBulb(Bulb):
         self.brightness = self.startingbrightness
         
     @property
+    def completed(self):
+        return (self.startingbrightness >= self.endingbrightness and self.brightness <= self.endingbrightness) or (self.endingbrightness >= self.startingbrightness and self.brightness >= self.endingbrightness)
+        
+    @property
     def delay(self):
         return self._delay
         
@@ -24,7 +28,7 @@ class TransitionBulb(Bulb):
         if self.startingbrightness >= self.endingbrightness:
             direction *= -1
         self.brightness += self.speed * direction * abs(self.startingbrightness - self.endingbrightness) / (self.delay * self.frequency / self.ticks_per_step)
-        if (self.startingbrightness >= self.endingbrightness and self.brightness <= self.endingbrightness) or (self.endingbrightness >= self.startingbrightness and self.brightness >= self.endingbrightness):
+        if self.completed:
             self.brightness = self.endingbrightness
         
         
