@@ -89,6 +89,12 @@ class Matrix:
                     child.tick()
                 except:
                     logging.exception('in child {}'.format(child))
+                    
+    def replace(self, item, withitem):
+        for column in range(self.columns):
+            for row in range(self.rows):
+                if self._matrix[column][row] == item:
+                    self.add(withitem, column, row, replace = True)
                 
     def add(self, item, column, row, replace = True):
         if self._matrix[column][row] and not replace:
