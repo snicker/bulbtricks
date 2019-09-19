@@ -77,12 +77,12 @@ class Matrix:
         completed = []
         for effect in self.effects:
             if effect.completed:
-                self.effect.on_completed(self)
                 completed.append(effect)
-            if effect not in completed:
-                effect.tick()
         for effect in completed:
+            self.effect.on_completed()()
             self.remove_effect(effect)
+        for effect in self.effects:
+            effect.tick()
         for child in self.children:
             if child:
                 try:
