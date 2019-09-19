@@ -3,6 +3,7 @@ from bulbs.rampupbulb import RampUpBulb
 from bulbs.transitionbulb import TransitionBulb
 from bulbs.bulb import Bulb
 from filters.bulbmultiplyfilter import BulbMultiplyFilter
+import copy
 
 class HighlightEffect(Effect):
     def __init__(self, column, row, minbrightnessmodifier = 0.01, maxbrightnessmodifier = 1, delay = 3):
@@ -49,7 +50,7 @@ class HighlightEffect_Up(Effect):
     
     def initialize(self, matrix):
         self._matrix = matrix
-        self._original_matrix = self._matrix._matrix
+        self._original_matrix = copy.deepcopy(self._matrix._matrix)
         filtered = []
         for column in range(self._matrix.columns):
             for row in range(self._matrix.rows):
