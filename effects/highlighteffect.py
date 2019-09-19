@@ -56,7 +56,7 @@ class HighlightEffect_Up(Effect):
                 bulb = self._matrix.at(column, row)
                 if bulb not in filtered and column != self.options.column and row != self.options.row:
                     fbulb = self.get_fbulb(bulb)
-                    filtered.add(fbulb)
+                    filtered.append(fbulb)
                     self._matrix.replace(bulb, fbulb)
         transitionfrom = self._matrix.at(self.options.column, self.options.row)
         self.transitionbulb = self.get_tbulb(transitionfrom)
