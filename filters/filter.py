@@ -3,7 +3,7 @@ class Filter(object):
         self._filtered = filtered
         
     def __getattr__(self, attr):
-        if attr in self.filtered_properties:
+        if attr in ['tick', 'step'] + self.filtered_properties:
             return self.brightness
         return self._filtered.__getattr__(attr)
         
@@ -22,4 +22,18 @@ class Filter(object):
     @brightness.setter
     def brightness(self, value):
         self._filtered.brightness = value
+        
+    def tick(self):
+        self.filter_tick()
+        self._filtered.tick()
+        
+    def step(self, direction):
+        self.filter_step(self, direction)
+        self._filtered.step(direction)
+        
+    def filter_tick(self):
+        pass
+        
+    def filter_step(self):
+        pass
        

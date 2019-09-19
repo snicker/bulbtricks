@@ -43,7 +43,7 @@ class Bulb:
         self._direction = 1
         
     def backward(self):
-        self._direction = 1
+        self._direction = -1
         
     def tick(self):
         self._ticks += 1
