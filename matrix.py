@@ -6,6 +6,7 @@ class Matrix:
     def __init__(self, columns, rows):
         self.frequency = 240
         self.running = False
+        self.paused = False
         self.effects = []
         self._matrix = [ [None for x in range(0, rows)] for y in range(0, columns) ]
         self._scheduler_thread = None
@@ -34,24 +35,16 @@ class Matrix:
         
     def add_effect(self, effect):
         if effect not in self.effects:
-            wasrunning = False
-            if self.running:
-                self.stop()
-                wasrunning = True
+            self.pause()
             self.effects.append(effect)
             effect.initialize(self)
-            if wasrunning:
-                self.run()
+            self.play()
         
     def remove_effect(self, effect):
-        wasrunning = False
-        if self.running:
-            self.stop()
-            wasrunning = True
+        self.pause()
         effect.remove()
         self.effects.remove(effect)
-        if wasrunning:
-            self.run()
+        self.play()
     
     def run(self):
         if not self.running:
@@ -72,23 +65,30 @@ class Matrix:
         if self._scheduler_thread:
             self._scheduler_thread.join()
             self._scheduler_thread = None
+            
+    def pause(self):
+        self.paused = True
+        
+    def play(self):
+        self.paused = False
         
     def tick(self):
-        completed = []
-        for effect in self.effects:
-            if effect.completed:
-                completed.append(effect)
-        for effect in completed:
-            self.remove_effect(effect)
-            self.effect.on_completed()()
-        for effect in self.effects:
-            effect.tick()
-        for child in self.children:
-            if child:
-                try:
-                    child.tick()
-                except:
-                    logging.exception('in child {}'.format(child))
+        if not self.paused:
+            completed = []
+            for effect in self.effects:
+                if effect.completed:
+                    completed.append(effect)
+            for effect in completed:
+                self.remove_effect(effect)
+                self.effect.on_completed()()
+            for effect in self.effects:
+                effect.tick()
+            for child in self.children:
+                if child:
+                    try:
+                        child.tick()
+                    except:
+                        logging.exception('in child {}'.format(child))
                     
     def replace(self, item, withitem):
         for column in range(self.columns):
