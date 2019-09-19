@@ -6,7 +6,7 @@ class Matrix:
     def __init__(self, columns, rows):
         self.frequency = 240
         self.running = False
-        self.effect = None
+        self.effects = []
         self._matrix = [ [None for x in range(0, rows)] for y in range(0, columns) ]
         self._scheduler_thread = None
         
@@ -33,16 +33,16 @@ class Matrix:
         return list(set(children))
         
     def add_effect(self, effect):
-        if self.effect is None:        
+        if effect not in self.effects
             self.stop()
-            self.effect = effect
-            self.effect.initialize(self)
+            self.effects.append(effect)
+            effect.initialize(self)
             self.run()
         
-    def remove_effect(self):
+    def remove_effect(self, effect):
         self.stop()
-        self.effect.remove()
-        self.effect = None
+        effect.remove()
+        self.effects.remove(effect)
         self.run()
     
     def run(self):
@@ -66,10 +66,15 @@ class Matrix:
             self._scheduler_thread = None
         
     def tick(self):
-        if self.effect:
-            if self.effect.completed:
+        completed = []
+        for effect in self.effects:
+            if effect.completed:
                 self.effect.on_completed(self)
-            self.effect.tick()
+                completed.append(effect)
+            if effect not in completed:
+                effect.tick()
+        for effect in completed:
+            self.remove_effect(effect)
         for child in self.children:
             if child:
                 try:
