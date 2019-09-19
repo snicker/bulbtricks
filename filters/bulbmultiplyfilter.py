@@ -5,7 +5,7 @@ class BulbMultiplyFilter(Filter):
         Filter.__init__(self, filtered)
         self.bulb = bulb
         
-    def filter_tick(self)
+    def filter_tick(self):
         self.bulb.tick()
     
     @property
