@@ -33,14 +33,15 @@ class Matrix:
         return list(set(children))
         
     def add_effect(self, effect):
-        self.stop()
-        self.effect = effect
-        self.effect.initialize(self)
-        self.run()
+        if self.effect is None:        
+            self.stop()
+            self.effect = effect
+            self.effect.initialize(self)
+            self.run()
         
     def remove_effect(self):
         self.stop()
-        self.effect.remove(self)
+        self.effect.remove()
         self.effect = None
         self.run()
     
@@ -66,6 +67,8 @@ class Matrix:
         
     def tick(self):
         if self.effect:
+            if self.effect.completed:
+                self.effect.on_completed(self)
             self.effect.tick()
         for child in self.children:
             if child:
