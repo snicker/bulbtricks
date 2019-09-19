@@ -80,7 +80,7 @@ class Matrix:
                     completed.append(effect)
             for effect in completed:
                 self.remove_effect(effect)
-                self.effect.on_completed()()
+                effect.on_completed()()
             for effect in self.effects:
                 effect.tick()
             for child in self.children:
