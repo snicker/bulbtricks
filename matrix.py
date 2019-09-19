@@ -33,7 +33,7 @@ class Matrix:
         return list(set(children))
         
     def add_effect(self, effect):
-        if effect not in self.effects
+        if effect not in self.effects:
             wasrunning = False
             if self.running:
                 self.stop()
