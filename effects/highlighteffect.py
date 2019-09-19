@@ -21,7 +21,7 @@ class HighlightEffect(Effect):
         return lambda: self._matrix.add_effect(HighlightEffect_Up(self))
         
     class HighlightEffect_Up(Effect):
-        def __init__(self, options)
+        def __init__(self, options):
             self.options = options
             self.transitionbulb = None
             
