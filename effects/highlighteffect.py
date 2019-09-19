@@ -60,7 +60,7 @@ class HighlightEffect_Up(Effect):
                     self._matrix.replace(bulb, fbulb)
         transitionfrom = self._matrix.at(self.options.column, self.options.row)
         self.transitionbulb = self.get_tbulb(transitionfrom)
-        self._matrix.replace(transitionfrom, tbulb)
+        self._matrix.replace(transitionfrom, self.transitionbulb)
                     
     def remove(self):
         self._matrix._matrix = self._original_matrix
