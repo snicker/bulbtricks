@@ -34,16 +34,24 @@ class Matrix:
         
     def add_effect(self, effect):
         if effect not in self.effects
-            self.stop()
+            wasrunning = False
+            if self.running:
+                self.stop()
+                wasrunning = True
             self.effects.append(effect)
             effect.initialize(self)
-            self.run()
+            if wasrunning:
+                self.run()
         
     def remove_effect(self, effect):
-        self.stop()
+        wasrunning = False
+        if self.running:
+            self.stop()
+            wasrunning = True
         effect.remove()
         self.effects.remove(effect)
-        self.run()
+        if wasrunning:
+            self.run()
     
     def run(self):
         if not self.running:
