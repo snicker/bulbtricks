@@ -23,19 +23,19 @@ class OLAWebDriver(DisplayDriver):
             values = {x:0 for x in range(4)}
             for row in range(self.matrix.rows):
                 for col in range(self.matrix.columns):
-                    channel_remap = self.channel_map.get(channel, channel)
-                    if channel_remap is not None and channel_remap > -1:
-                        b = 0
-                        try:
-                            b = int(self.matrix.at(col,row).brightness * 255)
-                        except:
-                            pass
-                        values[channel_remap] = b
+                    b = 0
+                    try:
+                        b = int(self.matrix.at(col,row).brightness * 255)
+                    except:
+                        pass
+                    values[channel] = b
                     channel += 1
                     if channel >= self.channel_limit:
                         return values
             return values
         values = get_values()
+        for k in self.channel_map:
+            values[self.channel_map[k]] = values[k]
         out = ','.join([str(values.get(c,0)) for c in range(max(values.keys()) + 1)])
         logging.debug("sending data to OLA at {}:{}: {}".format(self.host, self.port, out))
         resp = requests.post(self.ola_url, data = {'u': self.universe, 'd': out})
