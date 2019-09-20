@@ -52,15 +52,15 @@ class HighlightEffect_Up(Effect):
         self._matrix = matrix
         self._original_matrix = copy.deepcopy(self._matrix._matrix)
         filtered = []
+        focusbulb = self._matrix.at(self.options.column, self.options.row)
         for column in range(self._matrix.columns):
             for row in range(self._matrix.rows):
                 bulb = self._matrix.at(column, row)
-                if bulb not in filtered and column != self.options.column and row != self.options.row:
+                if bulb not in filtered and bulb != focusbulb:
                     fbulb = self.get_fbulb(bulb)
                     filtered.append(fbulb)
                     self._matrix.replace(bulb, fbulb)
-        transitionfrom = self._matrix.at(self.options.column, self.options.row)
-        self.transitionbulb = self.get_tbulb(transitionfrom)
+        self.transitionbulb = self.get_tbulb(focusbulb)
         self._matrix.add(self.transitionbulb, self.options.column, self.options.row)
                     
     def remove(self):
