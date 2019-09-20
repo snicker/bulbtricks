@@ -11,26 +11,33 @@ class OLAWebDriver(DisplayDriver):
         self.port = port
         self.universe = universe
         self.channel_map = {}
+        self.channel_limit = 512
         
     @property
     def ola_url(self):
         return "http://{host}:{port}/set_dmx".format(host = self.host, port = self.port)
 
     def render(self):
-        channel = 0
-        values = {x:0 for x in range(4)}
-        for row in range(self.matrix.rows):
-            for col in range(self.matrix.columns):
-                channel_remap = self.channel_map.get(channel, channel)
-                if channel_remap is not None and channel_remap > -1:
-                    b = 0
-                    try:
-                        b = int(self.matrix.at(col,row).brightness * 255)
-                    except:
-                        pass
-                    values[channel_remap] = b
-                channel += 1
+        def get_values():
+            channel = 0
+            values = {x:0 for x in range(4)}
+            for row in range(self.matrix.rows):
+                for col in range(self.matrix.columns):
+                    channel_remap = self.channel_map.get(channel, channel)
+                    if channel_remap is not None and channel_remap > -1:
+                        b = 0
+                        try:
+                            b = int(self.matrix.at(col,row).brightness * 255)
+                        except:
+                            pass
+                        values[channel_remap] = b
+                    channel += 1
+                    if channel >= self.channel_limit:
+                        return values
+            return values
+        values = get_values()
         out = ','.join([str(values.get(c,0)) for c in range(max(values.keys()) + 1)])
+        logging.debug("sending data to OLA at {}:{}: {}".format(self.host, self.port, out))
         resp = requests.post(self.ola_url, data = {'u': self.universe, 'd': out})
         if resp:
             if resp.text != 'ok':
