@@ -56,7 +56,7 @@ class HighlightEffect_Up(Effect):
         for column in range(self._matrix.columns):
             for row in range(self._matrix.rows):
                 bulb = self._matrix.at(column, row)
-                if bulb not in filtered and bulb != focusbulb:
+                if bulb not in filtered:
                     fbulb = self.get_fbulb(bulb)
                     filtered.append(fbulb)
                     self._matrix.replace(bulb, fbulb)
