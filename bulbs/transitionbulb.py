@@ -24,6 +24,13 @@ class TransitionBulb(Bulb):
     def endingbrightness(self):
         return self._tobulb.brightness if self._tobulb else 1
         
+    def tick(self):
+        Bulb.tick()
+        if self._tobulb:
+            self._tobulb.tick()
+        if self._frombulb:
+            self._frombulb.tick()
+        
     def step(self, direction):
         if self.startingbrightness >= self.endingbrightness:
             direction *= -1
