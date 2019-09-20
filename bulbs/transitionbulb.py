@@ -25,7 +25,7 @@ class TransitionBulb(Bulb):
         return self._tobulb.brightness if self._tobulb else 1
         
     def tick(self):
-        Bulb.tick()
+        Bulb.tick(self)
         if self._tobulb:
             self._tobulb.tick()
         if self._frombulb:
