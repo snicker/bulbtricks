@@ -61,7 +61,7 @@ class HighlightEffect_Up(Effect):
                     fbulb = self.get_fbulb(bulb)
                     self.filtered.append(fbulb)
                     self._matrix.replace(bulb, fbulb)
-        self.transitionbulb = self.get_tbulb(focusbulb)
+        self.transitionbulb = self.get_tbulb(self.focusbulb)
         self._matrix.add(self.transitionbulb, self.options.column, self.options.row)
                     
     def remove(self):
