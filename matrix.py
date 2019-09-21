@@ -96,9 +96,11 @@ class Matrix:
                 if self._matrix[column][row] == item:
                     self.add(withitem, column, row, replace = True)
                 
-    def add(self, item, column, row, replace = True):
+    def add(self, item, column, row, replace = True, match_freq = True):
         if self._matrix[column][row] and not replace:
             raise Exception('Cell already occupied')
+        if match_freq:
+            item._frequency = self._frequency
         self._matrix[column][row] = item
         
     def at(self, column, row):
