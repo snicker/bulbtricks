@@ -44,6 +44,10 @@ class Bulb:
         
     def backward(self):
         self._direction = -1
+    
+    def next_step_in(self, seconds):
+        self._ticks = 0
+        self._ticks_per_step = int(seconds * self.frequency)
         
     def tick(self):
         self._ticks += 1
