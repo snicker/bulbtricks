@@ -52,6 +52,10 @@ class Matrix:
         self.effects.remove(effect)
         if not paused:
             self.play()
+            
+    def remove_all_effects(self):
+        for effect in [e for e in self.effects]:
+            self.remove_effect(effect)
     
     def run(self):
         if not self.running:
