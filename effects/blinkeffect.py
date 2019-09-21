@@ -51,7 +51,7 @@ class BlinkCycleEffect(BlinkEffect):
         
     def next_effect(self):
         if self._current_effect:
-            self._matrix.remove(self._current_effect)
+            self._matrix.remove_effect(self._current_effect)
         self._current_effect = self._effect_order.pop(0)
         self._effect_order.append(self._current_effect)
         self._matrix.add_effect(self._current_effect)
