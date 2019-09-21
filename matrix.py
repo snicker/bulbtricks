@@ -4,12 +4,13 @@ import logging
 
 class Matrix:
     def __init__(self, columns, rows):
-        self.frequency = 240
+        self.frequency = 60
         self.running = False
         self.paused = False
         self.effects = []
         self._matrix = [ [None for x in range(0, rows)] for y in range(0, columns) ]
         self._scheduler_thread = None
+        self._speed = 1
         
         
     @property
@@ -58,10 +59,10 @@ class Matrix:
             self.running = True
             def fn():
                 if self.running:
-                    scheduler.enter(1.0 / self.frequency, 0, fn, ())
+                    scheduler.enter(self._speed * 1.0 / self.frequency, 0, fn, ())
                 self.tick()
             def fn_start():
-                scheduler.enter(1.0 / self.frequency, 0, fn, ())
+                scheduler.enter(self._speed * 1.0 / self.frequency, 0, fn, ())
                 scheduler.run()
             self._scheduler_thread = threading.Thread(target = fn_start)
             self._scheduler_thread.start()

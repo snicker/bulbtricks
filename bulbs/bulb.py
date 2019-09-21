@@ -5,7 +5,7 @@ class Bulb:
         self._ticks_per_step = 1
         self._direction = 1
         self._speed = 1.0
-        self._frequency = 240
+        self._frequency = 60
         
     @property
     def frequency(self):
