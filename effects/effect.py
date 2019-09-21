@@ -23,6 +23,10 @@ class Effect:
         
     def step(self):
         pass
+
+    @property
+    def ticks_per_step(self):
+        return self._ticks_per_step
         
     @property
     def completed(self):
