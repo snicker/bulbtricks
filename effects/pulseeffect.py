@@ -18,7 +18,7 @@ class PulseEffect(Effect):
                 bulb = self._get_effect_bulb()
                 self._matrix.add(bulb, col, row)
 
-class PulseColumnEffect(BlinkEffect):        
+class PulseColumnEffect(PulseEffect):        
     def initialize(self, matrix):
         self._matrix = matrix
         for col in range(self._matrix.columns):
@@ -28,7 +28,7 @@ class PulseColumnEffect(BlinkEffect):
                     bulb.brightness = self._maxbrightness
                 self._matrix.add(bulb, col, row)
 
-class PulseRowEffect(BlinkEffect):
+class PulseRowEffect(PulseEffect):
     def initialize(self, matrix):
         self._matrix = matrix
         for col in range(self._matrix.columns):
