@@ -34,3 +34,31 @@ class Effect:
         
     def on_completed(self):
         return lambda: None
+
+class EffectCycler(Effect):
+    def __init__(self):
+        Effect.__init__(self)
+        self._current_effect = None
+        self._effect_order = []
+
+    def add_effect(self, effect, length = 1):
+        self._effect_order.append({'effect': effect, 'length': length})
+        
+    def initialize(self, matrix):
+        self._matrix = matrix
+        self.next_effect()
+        
+    def step(self):
+        self.next_effect()
+        
+    def next_effect(self):
+        if self._current_effect:
+            self._matrix.remove_effect(self._current_effect['effect'])
+        self._current_effect = self._effect_order.pop(0)
+        self._effect_order.append(self._current_effect)
+        self._matrix.add_effect(self._current_effect['effect'])
+        self.next_step_in(self._current_effect['length'])
+        
+    def remove(self):
+        if self._current_effect:
+            self._matrix.remove(self._current_effect['effect'])

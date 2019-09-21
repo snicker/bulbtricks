@@ -1,4 +1,4 @@
-from effects.effect import Effect
+from effects.effect import Effect, EffectCycler
 from bulbs.blinkbulb import BlinkBulb
 
 class BlinkEffect(Effect):
@@ -31,36 +31,11 @@ class BlinkRowEffect(BlinkEffect):
                 bulb = BlinkBulb(on_length = self._on_length, off_length=self._off_length, maxbrightness=self._maxbrightness, initialstate = row % 2)
                 self._matrix.add(bulb, col, row)
                 
-class BlinkCycleEffect(BlinkEffect):
+class BlinkCycleEffect(EffectCycler):
     def __init__(self, on_length = 1, off_length = 1, maxbrightness = 1, cycles_per_effect = 2):
+        EffectCycler.__init__(self)
+        effect_length = (on_length + off_length) * cycles_per_effect
         blinkargs = {'on_length': on_length, 'off_length': off_length, 'maxbrightness': maxbrightness}
-        BlinkEffect.__init__(self, **blinkargs)
-        self._cycles_per_effect = cycles_per_effect
-        self._current_effect = None
-        self._effect_order = []
-        self._effect_order.append(BlinkEffect(**blinkargs))
-        self._effect_order.append(BlinkRowEffect(**blinkargs))
-        self._effect_order.append(BlinkColumnEffect(**blinkargs))
-        
-    def initialize(self, matrix):
-        self._matrix = matrix
-        self.next_effect()
-        
-    def step(self):
-        self.next_effect()
-        
-    def next_effect(self):
-        if self._current_effect:
-            self._matrix.remove_effect(self._current_effect)
-        self._current_effect = self._effect_order.pop(0)
-        self._effect_order.append(self._current_effect)
-        self._matrix.add_effect(self._current_effect)
-        self.next_step_in((self._on_length + self._off_length) * self._cycles_per_effect)
-        
-    def remove(self):
-        if self._current_effect:
-            self._matrix.remove(self._current_effect)
-        
-        
-        
-        
+        self.add_effect(BlinkEffect(**blinkargs), effect_length)
+        self.add_effect(BlinkRowEffect(**blinkargs), effect_length)
+        self.add_effect(BlinkColumnEffect(**blinkargs), effect_length)
