@@ -35,16 +35,22 @@ class Matrix:
         
     def add_effect(self, effect):
         if effect not in self.effects:
-            self.pause()
+            paused = self.paused
+            if not paused:
+                self.pause()
             self.effects.append(effect)
             effect.initialize(self)
-            self.play()
+            if not paused:
+                self.play()
         
     def remove_effect(self, effect):
-        self.pause()
+        paused = self.paused
+        if not paused:
+            self.pause()
         effect.remove()
         self.effects.remove(effect)
-        self.play()
+        if not paused:
+            self.play()
     
     def run(self):
         if not self.running:
