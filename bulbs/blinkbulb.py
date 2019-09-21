@@ -1,4 +1,4 @@
-from bulbs.bulb import Bulb
+from bulbtricks.bulbs.bulb import Bulb
 
 class BlinkBulb(Bulb):
     def __init__(self, on_length = 1, off_length = 1, maxbrightness = 1, initialstate = 0):

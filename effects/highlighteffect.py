@@ -1,8 +1,8 @@
-from effects.effect import Effect
-from bulbs.rampupbulb import RampUpBulb
-from bulbs.transitionbulb import TransitionBulb
-from bulbs.bulb import Bulb
-from filters.bulbmultiplyfilter import BulbMultiplyFilter
+from bulbtricks.effects.effect import Effect
+from bulbtricks.bulbs.rampupbulb import RampUpBulb
+from bulbtricks.bulbs.transitionbulb import TransitionBulb
+from bulbtricks.bulbs.bulb import Bulb
+from bulbtricks.filters.bulbmultiplyfilter import BulbMultiplyFilter
 import copy
 
 class HighlightEffect(Effect):

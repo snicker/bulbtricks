@@ -1,5 +1,5 @@
-from effects.effect import Effect
-from bulbs.pulsebulb import PulseBulb
+from bulbtricks.effects.effect import Effect
+from bulbtricks.bulbs.pulsebulb import PulseBulb
 
 class WaveEffect(Effect):
     def __init__(self, minbrightness = 0, maxbrightness = 1, delay = 10):

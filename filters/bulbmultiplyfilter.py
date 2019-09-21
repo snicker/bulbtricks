@@ -1,4 +1,4 @@
-from filters.filter import Filter
+from bulbtricks.filters.filter import Filter
 
 class BulbMultiplyFilter(Filter):
     def __init__(self, filtered, bulb):

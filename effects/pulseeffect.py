@@ -1,5 +1,5 @@
-from effects.effect import Effect, EffectCycler
-from bulbs.pulsebulb import PulseBulb
+from bulbtricks.effects.effect import Effect, EffectCycler
+from bulbtricks.bulbs.pulsebulb import PulseBulb
 
 class PulseEffect(Effect):
     def __init__(self, pulse_length = 2, minbrightness = 0, maxbrightness = 1):

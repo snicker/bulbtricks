@@ -1,4 +1,4 @@
-from bulbs.bulb import Bulb
+from bulbtricks.bulbs.bulb import Bulb
 
 class TransitionBulb(Bulb):
     def __init__(self, frombulb = None, tobulb = None, delay = 3):

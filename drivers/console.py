@@ -2,7 +2,7 @@ import time, sched
 import threading
 import logging
 import blessed
-from drivers.displaydriver import DisplayDriver
+from bulbtricks.drivers.displaydriver import DisplayDriver
 
 ASCIIGREYMAP = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 

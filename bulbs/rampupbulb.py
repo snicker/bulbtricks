@@ -1,4 +1,4 @@
-from bulbs.bulb import Bulb
+from bulbtricks.bulbs.bulb import Bulb
 
 class RampUpBulb(Bulb):
     def __init__(self, minbrightness = 0, maxbrightness = 1, delay = 3):

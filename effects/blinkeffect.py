@@ -1,5 +1,5 @@
-from effects.effect import Effect, EffectCycler
-from bulbs.blinkbulb import BlinkBulb
+from bulbtricks.effects.effect import Effect, EffectCycler
+from bulbtricks.bulbs.blinkbulb import BlinkBulb
 
 class BlinkEffect(Effect):
     def __init__(self, on_length = 1, off_length = 1, maxbrightness = 1):

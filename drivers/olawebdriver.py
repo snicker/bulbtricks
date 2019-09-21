@@ -2,7 +2,7 @@ import time, sched
 import threading
 import logging
 import requests
-from drivers.displaydriver import DisplayDriver
+from bulbtricks.drivers.displaydriver import DisplayDriver
 
 class OLAWebDriver(DisplayDriver):
     def __init__(self, matrix, host = 'localhost', port = 9090, universe = 1):
