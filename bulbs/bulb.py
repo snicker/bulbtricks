@@ -10,6 +10,12 @@ class Bulb:
     @property
     def frequency(self):
         return self._frequency
+        
+    @frequency.setter
+    def frequency(self, value):
+        multiplier = (value + 0.0) / self._frequency
+        self._ticks_per_step = max(1,int(self._ticks_per_step * multiplier))
+        self._frequency = value
 
     @property
     def speed(self):
