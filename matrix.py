@@ -59,10 +59,10 @@ class Matrix:
             self.running = True
             def fn():
                 if self.running:
-                    scheduler.enter(self._speed * 1.0 / self.frequency, 0, fn, ())
+                    scheduler.enter(1.0 / self.frequency / self._speed, 0, fn, ())
                 self.tick()
             def fn_start():
-                scheduler.enter(self._speed * 1.0 / self.frequency, 0, fn, ())
+                scheduler.enter(1.0 / self.frequency / self._speed, 0, fn, ())
                 scheduler.run()
             self._scheduler_thread = threading.Thread(target = fn_start)
             self._scheduler_thread.start()
