@@ -61,4 +61,4 @@ class EffectCycler(Effect):
         
     def remove(self):
         if self._current_effect:
-            self._matrix.remove(self._current_effect['effect'])
+            self._matrix.remove_effect(self._current_effect['effect'])
