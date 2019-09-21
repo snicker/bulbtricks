@@ -53,7 +53,7 @@ class Bulb:
     
     def next_step_in(self, seconds):
         self._ticks = 0
-        self._ticks_per_step = int(seconds * self.frequency)
+        self._ticks_per_step = int(seconds * self.frequency) - 1
         
     def tick(self):
         self._ticks += 1
