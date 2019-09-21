@@ -9,7 +9,7 @@ class PulseEffect(Effect):
         self._maxbrightness = maxbrightness
 
     def _get_effect_bulb(self):
-        bulb = PulseBulb(delay = self._pulse_length / 2.0, minbrightness = self._minbrightness, maxbrightness = self._maxbrightness)
+        return PulseBulb(delay = self._pulse_length / 2.0, minbrightness = self._minbrightness, maxbrightness = self._maxbrightness)
         
     def initialize(self, matrix):
         self._matrix = matrix
