@@ -13,7 +13,7 @@ class Effect:
     def next_step_in(self, seconds):
         if self._matrix:
             self._ticks = 0
-            self._ticks_per_step = int(seconds * self._matrix.frequency)
+            self._ticks_per_step = int(seconds * self._matrix.frequency) - 1
         
     def tick(self):
         self._ticks += 1
