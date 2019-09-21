@@ -100,7 +100,7 @@ class Matrix:
         if self._matrix[column][row] and not replace:
             raise Exception('Cell already occupied')
         if match_freq:
-            item._frequency = self._frequency
+            item._frequency = self.frequency
         self._matrix[column][row] = item
         
     def at(self, column, row):
