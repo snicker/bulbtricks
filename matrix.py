@@ -45,13 +45,14 @@ class Matrix:
                 self.play()
         
     def remove_effect(self, effect):
-        paused = self.paused
-        if not paused:
-            self.pause()
-        effect.remove()
-        self.effects.remove(effect)
-        if not paused:
-            self.play()
+        if effect in self.effects:
+            paused = self.paused
+            if not paused:
+                self.pause()
+            effect.remove()
+            self.effects.remove(effect)
+            if not paused:
+                self.play()
             
     def remove_all_effects(self):
         for effect in [e for e in self.effects]:
