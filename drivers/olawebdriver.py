@@ -25,7 +25,7 @@ class OLAWebDriver(DisplayDriver):
                 for col in range(self.matrix.columns):
                     b = 0
                     try:
-                        b = int(self.matrix.at(col,row).brightness * 255)
+                        b = int(self.matrix.brightness_at(col,row) * 255)
                     except:
                         pass
                     values[channel] = b

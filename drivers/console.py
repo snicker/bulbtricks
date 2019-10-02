@@ -25,7 +25,7 @@ class ConsoleDriver(DisplayDriver):
                 for col in range(self.matrix.columns):
                     b = 0
                     try:
-                        b = self.matrix.at(col,row).brightness * 100
+                        b = self.matrix.brightness_at(col,row) * 100
                     except:
                         pass
                     output = "0"
