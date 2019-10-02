@@ -120,3 +120,10 @@ class Matrix:
             return self._matrix[column][row]
         return None
         
+    def brightness_at(self, column, row):
+        try:
+            return self.at(column, row).brightness
+        except:
+            pass
+        return 0
+        
