@@ -45,7 +45,7 @@ class OLAWebDriver(DisplayDriver):
         return False
 
     def run(self):
-        if validate_universe(self.universe):
+        if self.validate_universe(self.universe):
             DisplayDriver.run(self)
         else:
             logging.error('Universe ID {} not found on OLA instance'.format(self.universe))
