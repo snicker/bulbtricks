@@ -28,7 +28,7 @@ class OLAWebDriver(DisplayDriver):
     def get_universes(self):
         universes = []
         try:
-            resp = requests.get(self.universe_plugin_list)
+            resp = requests.get(self.universe_plugin_list_url)
             if resp:
                 jresp = resp.json()
                 universes = jresp.get('universes') or []
