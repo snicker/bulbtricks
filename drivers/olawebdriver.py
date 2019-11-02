@@ -33,7 +33,7 @@ class OLAWebDriver(DisplayDriver):
                 jresp = resp.json()
                 universes = jresp.get('universes') or []
         except:
-            logging.error('could not fetch universe data from ola')
+            logging.exception('could not fetch universe data from ola')
         return universes
     
     def validate_universe(self, universe):
