@@ -15,7 +15,40 @@ class OLAWebDriver(DisplayDriver):
         
     @property
     def ola_url(self):
-        return "http://{host}:{port}/set_dmx".format(host = self.host, port = self.port)
+        return "http://{host}:{port}".format(host = self.host, port = self.port)
+        
+    @property
+    def set_dmx_url(self):
+        return "{}/set_dmx".format(self.ola_url)
+        
+    @property
+    def universe_plugin_list_url(self):
+        return "{}/json/universe_plugin_list".format(self.ola_url)
+        
+    def get_universes(self):
+        universes = []
+        try:
+            resp = requests.get(self.universe_plugin_list)
+            if resp:
+                jresp = resp.json()
+                universes = jresp.get('universes') or []
+        except:
+            logging.error('could not fetch universe data from ola')
+        return universes
+    
+    def validate_universe(self, universe):
+        universes = self.get_universes()
+        if universes:
+            for udata in universes:
+                if universe == udata.get('id'):
+                    return True
+        return False
+
+    def run(self):
+        if validate_universe(self.universe):
+            DisplayDriver.run(self)
+        else:
+            logging.error('Universe ID {} not found on OLA instance'.format(self.universe))
 
     def render(self):
         def get_values():
@@ -38,7 +71,7 @@ class OLAWebDriver(DisplayDriver):
             values[self.channel_map[k]] = values[k]
         out = ','.join([str(values.get(c,0)) for c in range(max(values.keys()) + 1)])
         logging.debug("sending data to OLA at {}:{}: {}".format(self.host, self.port, out))
-        resp = requests.post(self.ola_url, data = {'u': self.universe, 'd': out})
+        resp = requests.post(self.set_dmx_url, data = {'u': self.universe, 'd': out})
         if resp:
             if resp.text != 'ok':
                 logging.error('bad response from OLA {}'.format(resp.text))
